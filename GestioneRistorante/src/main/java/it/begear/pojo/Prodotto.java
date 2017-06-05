@@ -1,11 +1,22 @@
-package pojo;
+package it.begear.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "prodotto")
 public class Prodotto {
 
+	@Id
+	@Column(name = "nome")
 	private String nome;
 
+	@Column(name = "tipologia")
 	private String tipologia;
 
+	@Column(name = "prezzo")
 	private Double prezzo;
 
 	public String getNome() {

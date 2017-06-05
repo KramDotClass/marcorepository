@@ -1,4 +1,4 @@
-package pojo;
+package it.begear.pojo;
 
 import java.util.List;
 import javax.persistence.JoinTable;
@@ -12,29 +12,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name="ordine")
+@Table(name = "ordine")
 public class Ordine {
 
 	@Id
-	@Column(name="codOrdine")
+	@Column(name = "codOrdine")
 	@GeneratedValue
 	private int codOrdine;
 
 	@ManyToOne
-	@JoinColumn(name="codCameriere", insertable=false, updatable=false, 
-            nullable=false)
+	@JoinColumn(name = "codCameriere", insertable = false, updatable = false, nullable = false)
 	private Cameriere cameriere;
 
+	@Column(name = "numTavolo")
 	private Integer numTavolo;
 
+	@Column(name = "numCoperti")
 	private Integer numCoperti;
 
+	@Column(name = "totale")
 	private Double totale;
-	
+
 	@ManyToMany
-	@JoinTable(name="ordine_prodotto",
-	joinColumns={@JoinColumn (name="codOrdine")},
-	inverseJoinColumns={@JoinColumn (name="nome")})
+	@JoinTable(name = "ordine_prodotto", joinColumns = { @JoinColumn(name = "codOrdine") }, inverseJoinColumns = {
+			@JoinColumn(name = "nome") })
 	private List<Prodotto> prodotti;
 
 	public int getCodOrdine() {

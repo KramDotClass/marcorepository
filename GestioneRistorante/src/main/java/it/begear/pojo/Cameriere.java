@@ -1,4 +1,4 @@
-package pojo;
+package it.begear.pojo;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class Cameriere {
 	@GeneratedValue
 	private int codCameriere;
 
-	@Column(name = "name")
+	@Column(name = "nome")
 	private String nome;
 
 	@Column(name = "cognome")
