@@ -1,8 +1,11 @@
 package it.begear.pojo;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Prodotto {
 
 	@Column(name = "prezzo")
 	private Double prezzo;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "ordine")
+	private List<Ordine> ordini;
 
 	public String getNome() {
 		return nome;
