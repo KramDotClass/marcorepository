@@ -21,7 +21,7 @@ public class Ordine {
 	private int codOrdine;
 
 	@ManyToOne
-	@JoinColumn(name = "codCameriere", insertable = false, updatable = false, nullable = false)
+	@JoinColumn(name = "codCameriere", referencedColumnName = "codOrdine", insertable = false, updatable = false, nullable = false)
 	private Cameriere cameriere;
 
 	@Column(name = "numTavolo")
