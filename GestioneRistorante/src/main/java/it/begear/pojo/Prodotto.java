@@ -22,7 +22,7 @@ public class Prodotto {
 	@Column(name = "prezzo")
 	private Double prezzo;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "ordine")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "prodotti")
 	private List<Ordine> ordini;
 
 	public String getNome() {
@@ -47,6 +47,14 @@ public class Prodotto {
 
 	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
+	}
+
+	public List<Ordine> getOrdini() {
+		return ordini;
+	}
+
+	public void setOrdini(List<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.begear.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,8 @@ import it.begear.pojo.Cameriere;
 
 @Controller
 public class CameriereController {
+	
+	@Autowired
 	private CameriereDAOImpl cameriereService;
 
 	@RequestMapping(value = "/delCameriere", method = RequestMethod.GET)

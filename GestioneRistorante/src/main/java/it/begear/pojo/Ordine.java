@@ -23,8 +23,8 @@ public class Ordine {
 	private int codOrdine;
 
 	@ManyToOne
-	@JoinColumn(name = "codCameriere", referencedColumnName = "codOrdine", insertable = false, updatable = false, nullable = false)
-	private Cameriere cameriere;
+	@JoinColumn(name = "cameriere", referencedColumnName = "codCameriere", insertable = false, updatable = false, nullable = false)
+	private Cameriere codCameriere;
 
 	@Column(name = "numTavolo")
 	private Integer numTavolo;
@@ -35,11 +35,10 @@ public class Ordine {
 	@Column(name = "totale")
 	private Double totale;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "ordine_prodotto", joinColumns = { @JoinColumn(name = "codOrdine") }, inverseJoinColumns = {
 			@JoinColumn(name = "nome") })
 	private List<Prodotto> prodotti;
-	
 
 	public void setListaProdotti(List<Prodotto> listProdotti) {
 		this.prodotti = listProdotti;
@@ -78,7 +77,19 @@ public class Ordine {
 	}
 
 	public void setCameriere(Cameriere cameriere) {
-		this.cameriere = cameriere;
+		this.codCameriere = cameriere;
+	}
+
+	public List<Prodotto> getProdotti() {
+		return prodotti;
+	}
+
+	public void setProdotti(List<Prodotto> prodotti) {
+		this.prodotti = prodotti;
+	}
+
+	public Cameriere getCameriere() {
+		return codCameriere;
 	}
 
 }

@@ -78,8 +78,8 @@ public class OrdineDAOImpl implements OrdineDAO {
 	public List<Ordine> listaOrdini() {
 		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
 		try{
-			
-			List<Ordine> lista = ((List<Ordine>)session.createQuery("from ordine").list());
+			session.beginTransaction();
+			List<Ordine> lista = ((List<Ordine>)session.createQuery("from Ordine").list());
 
 			return lista;
 		}catch (HibernateException e) {

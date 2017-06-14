@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/sakila?useSSL=false </property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/ristorante?useSSL=false </property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">ciao</property>
 		<property name="coonection,pool_size">1</property>
@@ -14,8 +14,8 @@
 		<property name="current_session_context_class">thread</property>
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<property name="show_sql">true</property>
-		<mapping class="it.begear.Cameriere" />
-		<mapping class="it.begear.Ordine" />
-		<mapping class="it.begear.Prodotto" />
+		<mapping class="it.begear.pojo.Cameriere" />
+		<mapping class="it.begear.pojo.Ordine" />
+		<mapping class="it.begear.pojo.Prodotto" />
 	</session-factory>
 </hibernate-configuration>

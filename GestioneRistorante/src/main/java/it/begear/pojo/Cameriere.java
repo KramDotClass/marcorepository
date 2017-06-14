@@ -7,11 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.IndexColumn;
 
 @Entity
 @Table(name = "cameriere")
@@ -28,9 +27,10 @@ public class Cameriere {
 	@Column(name = "cognome")
 	private String cognome;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy="cameriere")
-	/*@JoinColumn(name = "codCameriere")
-	@IndexColumn(name = "codCameriere")*/
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "codCameriere")
+	@org.hibernate.annotations.Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+			org.hibernate.annotations.CascadeType.LOCK })
+	@org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)
 	private List<Ordine> ordini;
 
 	public int getCodCameriere() {
@@ -55,6 +55,14 @@ public class Cameriere {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+
+	public List<Ordine> getOrdini() {
+		return ordini;
+	}
+
+	public void setOrdini(List<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 
 }

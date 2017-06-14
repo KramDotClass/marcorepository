@@ -9,30 +9,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import it.begear.dao.OrdineDAOImpl;
+import it.begear.dao.OrdineDAO;
 import it.begear.pojo.Ordine;
-
+import it.begear.pojo.Prodotto;
 
 @Controller
 public class OrdineController {
-	
-    @Autowired
-    private OrdineDAOImpl ordineDAO;
+
+	@Autowired
+	private OrdineDAO ordineDAO;
 
 	@RequestMapping(value = "/delOrdine", method = RequestMethod.GET)
 	public void delOrdine(@RequestParam("codOrdine") int id) {
-	    ordineDAO.deleteOrdine(id);
+		ordineDAO.deleteOrdine(id);
 	}
-	
+
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView getOrdini() {
-	   
-	    ModelAndView model = new ModelAndView("index");
+
+		ModelAndView model = new ModelAndView("index");
 		List<Ordine> lista = ordineDAO.listaOrdini();
-		model.addObject("lista",lista);
-		
+		List<Prodotto> listaProdotti = lista.get(0).getProdotti();
+		model.addObject("lista", lista);
+
 		return model;
 	}
-	
-	
+
 }
