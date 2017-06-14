@@ -8,7 +8,7 @@ public interface CameriereDAO {
 
 	public Cameriere getCameriere(int codCameriere);
 
-	public boolean updateCameriere(int codCameriere);
+	public boolean updateCameriere(Cameriere cameriere);
 
 	public boolean deleteCameriere(int codCameriere);
 

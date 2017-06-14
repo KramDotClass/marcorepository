@@ -12,8 +12,10 @@ public interface OrdineDAO {
 
 	public Ordine getOrdine(int codOrdine);
 
-	public boolean updateOrdine(int codOrdine);
+	public boolean updateOrdine(Ordine ordine);
 
 	public boolean deleteOrdine(int codOrdine);
+	
+	public List<Ordine> listaOrdini();
 
 }

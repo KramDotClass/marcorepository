@@ -1,29 +1,27 @@
 package it.begear.dao;
 
+import it.begear.pojo.Cameriere;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import it.begear.pojo.Cameriere;
-import it.begear.pojo.Ordine;
-import it.begear.pojo.Prodotto;
 
-public class OrdineDAOImpl implements OrdineDAO {
 
-	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti) {
+public class CameriereDAOImpl implements CameriereDAO {
+
+	public boolean creaCameriere(String nome, String cognome) {
 		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Ordine order=new Ordine(); 
-			order.setNumCoperti(numCoperti);
-			order.setNumTavolo(numTavolo);
-			order.setCameriere(cameriere);
-			order.setListaProdotti(prodotti);
-			session.persist(order);
+			Cameriere cameriere=new Cameriere(); 
+			cameriere.setNome(nome);
+			cameriere.setCognome(cognome);
+			session.persist(cameriere);
 			tx.commit();
 			return true;
 		}catch (HibernateException e) {
@@ -35,13 +33,13 @@ public class OrdineDAOImpl implements OrdineDAO {
 		}
 	}
 
-	public Ordine getOrdine(int codOrdine) {
+	public Cameriere getCameriere(int codCameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Ordine ordine = (Ordine) session.load(Ordine.class, codOrdine);
-			return ordine;
+			Cameriere cameriere = (Cameriere) session.load(Cameriere.class, codCameriere);
+			return cameriere;
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();
 			e.printStackTrace();
@@ -51,20 +49,10 @@ public class OrdineDAOImpl implements OrdineDAO {
 		}
 	}
 
-
-	public boolean deleteOrdine(int codOrdine) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
-		Ordine ordine = (Ordine) session.load(Ordine.class, codOrdine);
-		if(null != ordine){
-			session.delete(ordine);
-		}
-		return true;
-	}
-
-	public boolean updateOrdine(Ordine ordine) {
+	public boolean updateCameriere(Cameriere cameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
 		try{
-		session.update(ordine);
+		session.update(cameriere);
 		return true;
 		}catch (HibernateException e) {
 			e.printStackTrace();
@@ -75,21 +63,13 @@ public class OrdineDAOImpl implements OrdineDAO {
 		}
 	}
 
-	public List<Ordine> listaOrdini() {
+	public boolean deleteCameriere(int codCameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
-		try{
-			
-			List<Ordine> lista = ((List<Ordine>)session.createQuery("from ordine").list());
-
-			return lista;
-		}catch (HibernateException e) {
-
-			e.printStackTrace();
-			return null;
-		}finally {
-			session.close(); 
+		Cameriere c = (Cameriere) session.load(Cameriere.class, new Integer(codCameriere));
+		if(null != c){
+			session.delete(c);
 		}
+		return true;
 	}
-
 
 }

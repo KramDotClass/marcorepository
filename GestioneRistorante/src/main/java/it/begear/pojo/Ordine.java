@@ -5,8 +5,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,10 +35,15 @@ public class Ordine {
 	@Column(name = "totale")
 	private Double totale;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "ordine_prodotto", joinColumns = { @JoinColumn(name = "codOrdine") }, inverseJoinColumns = {
 			@JoinColumn(name = "nome") })
 	private List<Prodotto> prodotti;
+	
+
+	public void setListaProdotti(List<Prodotto> listProdotti) {
+		this.prodotti = listProdotti;
+	}
 
 	public int getCodOrdine() {
 		return codOrdine;
@@ -68,6 +75,10 @@ public class Ordine {
 
 	public void setTotale(Double totale) {
 		this.totale = totale;
+	}
+
+	public void setCameriere(Cameriere cameriere) {
+		this.cameriere = cameriere;
 	}
 
 }
