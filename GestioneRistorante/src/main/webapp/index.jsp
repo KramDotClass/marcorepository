@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page isELIgnored="false"%>
 <html>
 <head>
-<%@ page isELIgnored="false"%>
 </head>
 <body>
 	<c:forEach items="${lista}" var="ordine">

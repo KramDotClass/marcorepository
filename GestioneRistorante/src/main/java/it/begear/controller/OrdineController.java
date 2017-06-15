@@ -2,6 +2,8 @@ package it.begear.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import it.begear.dao.CameriereDAOImpl;
 import it.begear.dao.OrdineDAO;
+import it.begear.dao.ProdottoDAOImpl;
+import it.begear.pojo.Cameriere;
 import it.begear.pojo.Ordine;
 import it.begear.pojo.Prodotto;
 
@@ -29,9 +34,26 @@ public class OrdineController {
 
 		ModelAndView model = new ModelAndView("index");
 		List<Ordine> lista = ordineDAO.listaOrdini();
-		List<Prodotto> listaProdotti = lista.get(0).getProdotti();
 		model.addObject("lista", lista);
+		return model;
+	}
 
+	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
+	public boolean inserisciOrdine(HttpServletRequest request) {
+		int codCameriere = Integer.parseInt(request.getParameter("codCameriere"));
+		for (int i = 0; i < 100; i++) {
+			request.getParameter("text" + i);
+		}
+		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
+		// boolean success = ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti);
+		return true;
+	}
+
+	@RequestMapping(value = "/nuovoOrdine")
+	public ModelAndView menu() {
+		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
+		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
+		model.addObject("menu", listaProdotti);
 		return model;
 	}
 

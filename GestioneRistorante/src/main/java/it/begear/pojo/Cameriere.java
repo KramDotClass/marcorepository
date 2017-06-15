@@ -28,9 +28,9 @@ public class Cameriere {
 	private String cognome;
 
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "codCameriere")
-	@org.hibernate.annotations.Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+	/*@org.hibernate.annotations.Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE,
 			org.hibernate.annotations.CascadeType.LOCK })
-	@org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)
+	@org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)*/
 	private List<Ordine> ordini;
 
 	public int getCodCameriere() {
