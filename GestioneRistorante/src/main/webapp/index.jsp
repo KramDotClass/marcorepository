@@ -21,11 +21,14 @@
 				<td>${ordine.numCoperti}</td>
 				<td>${ordine.totale}&euro;</td>
 				<td><button>Modifica</button></td>
-				<td><button>Elimina</button></td>
+				<td><form action="delOrdine" method="get">
+						<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
+						<button>Elimina</button>
+					</form></td>
 			</tr>
 		</c:forEach>
 		<tr align="center">
-			<td  colspan="7" >
+			<td colspan="7">
 				<form action="nuovoOrdine">
 					<input type="submit" value="INSERISCI NUOVO ORDINE" />
 				</form>

@@ -18,7 +18,8 @@ public class OrdineDAOImpl implements OrdineDAO {
 	@Autowired
 	Ordine order;
 
-	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti, double totale) {
+	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti,
+			double totale) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
@@ -36,9 +37,9 @@ public class OrdineDAOImpl implements OrdineDAO {
 				tx.rollback();
 			e.printStackTrace();
 			return false;
-		} finally {			
+		} finally {
 			session.close();
-			
+
 		}
 	}
 
@@ -47,7 +48,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Ordine ordine = (Ordine) session.load(Ordine.class, codOrdine);
+			Ordine ordine = (Ordine) session.get(Ordine.class, codOrdine);
 			return ordine;
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -61,11 +62,22 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	public boolean deleteOrdine(int codOrdine) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
-		Ordine ordine = (Ordine) session.load(Ordine.class, codOrdine);
+		Ordine ordine = (Ordine) session.get(Ordine.class, codOrdine);
 		if (null != ordine) {
-			session.delete(ordine);
+			try {
+				session.beginTransaction();
+				session.delete(ordine);
+				session.getTransaction().commit();
+				return true;
+			} catch (HibernateException e) {
+				session.getTransaction().rollback();
+				e.printStackTrace();
+				return false;
+			} finally {
+				session.close();
+			}
 		}
-		return true;
+		return false;
 	}
 
 	public boolean updateOrdine(Ordine ordine) {

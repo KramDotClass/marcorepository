@@ -35,7 +35,7 @@ public class Ordine {
 	@Column(name = "totale")
 	private Double totale;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "ordine_prodotto", joinColumns = { @JoinColumn(name = "codOrdine") }, inverseJoinColumns = {
 			@JoinColumn(name = "nome") })
 	private List<Prodotto> prodotti;

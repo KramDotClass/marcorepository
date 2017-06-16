@@ -1,19 +1,25 @@
 package it.begear.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.begear.dao.CameriereDAOImpl;
 import it.begear.dao.OrdineDAO;
+import it.begear.dao.OrdineDAOImpl;
 import it.begear.dao.ProdottoDAOImpl;
 import it.begear.pojo.Cameriere;
 import it.begear.pojo.Ordine;
@@ -26,8 +32,9 @@ public class OrdineController {
 	private OrdineDAO ordineDAO;
 
 	@RequestMapping(value = "/delOrdine", method = RequestMethod.GET)
-	public void delOrdine(@RequestParam("codOrdine") int id) {
+	public String delOrdine(@RequestParam("codOrdine") int id) {
 		ordineDAO.deleteOrdine(id);
+		return "redirect:index";
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -45,10 +52,10 @@ public class OrdineController {
 		int numTavolo = Integer.parseInt(request.getParameter("numTavolo"));
 		int numCoperti = Integer.parseInt(request.getParameter("numCoperti"));
 		int quantity;
-		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
-		List<Prodotto> prodotti = new ArrayList<Prodotto>();
 		int i = 0;
 		double totale = 0;
+		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
+		List<Prodotto> prodotti = new ArrayList<Prodotto>();
 		for (Prodotto p : listaProdotti) {
 			quantity = Integer.parseInt(request.getParameter("quantity" + i));
 			for (int j = 0; j < quantity; j++) {
@@ -67,6 +74,25 @@ public class OrdineController {
 		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		model.addObject("menu", listaProdotti);
+		return model;
+	}
+
+	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ModelAndView orderDetail(@PathVariable("id") int id){
+		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
+		List<Prodotto> prodotti = new OrdineDAOImpl().getOrdine(id).getProdotti();
+		Map<String, Integer> mappaProdotti = new HashMap();
+		for(Prodotto p : prodotti){
+			if(mappaProdotti.containsKey(p.getNome())){
+				Integer value = mappaProdotti.get(p.getNome());
+				value++;
+				mappaProdotti.put(p.getNome(), value);
+			}
+			else {
+				mappaProdotti.put(p.getNome(), 1);
+			}
+		}
+		model.addObject("lista", mappaProdotti);
 		return model;
 	}
 
