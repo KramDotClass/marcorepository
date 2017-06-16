@@ -40,7 +40,7 @@ public class OrdineController {
 	}
 
 	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
-	public void inserisciOrdine(HttpServletRequest request) {
+	public String inserisciOrdine(HttpServletRequest request) {
 		int codCameriere = Integer.parseInt(request.getParameter("codCameriere"));
 		int numTavolo = Integer.parseInt(request.getParameter("numTavolo"));
 		int numCoperti = Integer.parseInt(request.getParameter("numCoperti"));
@@ -48,16 +48,18 @@ public class OrdineController {
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = new ArrayList<Prodotto>();
 		int i = 0;
+		double totale = 0;
 		for (Prodotto p : listaProdotti) {
 			quantity = Integer.parseInt(request.getParameter("quantity" + i));
 			for (int j = 0; j < quantity; j++) {
 				prodotti.add(p);
+				totale += p.getPrezzo();
 			}
 			i++;
 		}
 		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
-		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti);
-
+		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale);
+		return "redirect:index";
 	}
 
 	@RequestMapping(value = "/nuovoOrdine")

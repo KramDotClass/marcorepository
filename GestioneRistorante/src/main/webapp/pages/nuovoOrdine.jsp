@@ -9,9 +9,9 @@
 </head>
 <body>
 	<form action="newOrder" method="post">
-		<input type="text" name="codCameriere" placeholder="ID CAMERIERE" /><br />
-		<input type="text" name="numTavolo" placeholder="TAVOLO" /><br /> <input
-			type="text" name="numCoperti" placeholder="1 COPERTO" /><br />
+		<input type="text" name="codCameriere" placeholder="ID CAMERIERE" required /><br />
+		<input type="text" name="numTavolo" placeholder="TAVOLO" required /><br /> <input
+			type="text" name="numCoperti" placeholder="1 COPERTO" required /><br />
 		<c:set var="i" value="0" scope="page" />
 		<c:forEach items="${menu}" var="menuEntry">
 			${menuEntry.nome}<input type="number" min="0" name="quantity${i}" value="0" /><br />
