@@ -17,7 +17,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 	Cameriere cameriere;
 
 	public boolean creaCameriere(String nome, String cognome) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -38,11 +38,11 @@ public class CameriereDAOImpl implements CameriereDAO {
 	}
 
 	public Cameriere getCameriere(int codCameriere) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Cameriere cameriere = (Cameriere) session.load(Cameriere.class, codCameriere);
+			Cameriere cameriere = (Cameriere) session.get(Cameriere.class, new Integer(codCameriere));
 			return cameriere;
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -55,7 +55,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 	}
 
 	public boolean updateCameriere(Cameriere cameriere) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.update(cameriere);
 			return true;
@@ -68,7 +68,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 	}
 
 	public boolean deleteCameriere(int codCameriere) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		cameriere = (Cameriere) session.load(Cameriere.class, new Integer(codCameriere));
 		if (null != cameriere) {
 			session.delete(cameriere);
@@ -77,7 +77,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 	}
 
 	public List<Cameriere> getCamerieri() {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();

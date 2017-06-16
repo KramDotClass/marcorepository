@@ -23,7 +23,7 @@ public class Ordine {
 	private int codOrdine;
 
 	@ManyToOne
-	@JoinColumn(name = "cameriere", referencedColumnName = "codCameriere", insertable = false, updatable = false, nullable = false)
+	@JoinColumn(name = "cameriere", referencedColumnName = "codCameriere")
 	private Cameriere codCameriere;
 
 	@Column(name = "numTavolo")

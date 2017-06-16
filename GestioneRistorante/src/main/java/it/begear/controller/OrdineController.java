@@ -1,5 +1,6 @@
 package it.begear.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,14 +40,24 @@ public class OrdineController {
 	}
 
 	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
-	public boolean inserisciOrdine(HttpServletRequest request) {
+	public void inserisciOrdine(HttpServletRequest request) {
 		int codCameriere = Integer.parseInt(request.getParameter("codCameriere"));
-		for (int i = 0; i < 100; i++) {
-			request.getParameter("text" + i);
+		int numTavolo = Integer.parseInt(request.getParameter("numTavolo"));
+		int numCoperti = Integer.parseInt(request.getParameter("numCoperti"));
+		int quantity;
+		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
+		List<Prodotto> prodotti = new ArrayList<Prodotto>();
+		int i = 0;
+		for (Prodotto p : listaProdotti) {
+			quantity = Integer.parseInt(request.getParameter("quantity" + i));
+			for (int j = 0; j < quantity; j++) {
+				prodotti.add(p);
+			}
+			i++;
 		}
 		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
-		// boolean success = ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti);
-		return true;
+		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti);
+
 	}
 
 	@RequestMapping(value = "/nuovoOrdine")

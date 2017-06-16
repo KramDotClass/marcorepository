@@ -16,7 +16,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 	Prodotto prodotto;
 
 	public boolean creaProdotto(String nome, String tipologia, double prezzo) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -37,7 +37,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 	}
 
 	public Prodotto getProdotto(String nome) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -55,7 +55,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 	}
 
 	public boolean updateProdotto(Prodotto prodotto) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.update(prodotto);
 			return true;
@@ -68,7 +68,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 	}
 
 	public boolean deleteProdotto(String nome) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Prodotto p = (Prodotto) session.load(Prodotto.class, nome);
 		if (null != p) {
 			session.delete(p);
@@ -77,10 +77,9 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 	}
 
 	public List<Prodotto> listaProdotti() {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		session.beginTransaction();
 		List<Prodotto> productList = session.createQuery("from Prodotto").list();
-		session.close();
 		return productList;
 	}
 

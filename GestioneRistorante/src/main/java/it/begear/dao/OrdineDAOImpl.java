@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionException;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 	Ordine order;
 
 	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -26,7 +27,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 			order.setNumTavolo(numTavolo);
 			order.setCameriere(cameriere);
 			order.setListaProdotti(prodotti);
-			session.persist(order);
+			session.save(order);
 			tx.commit();
 			return true;
 		} catch (HibernateException e) {
@@ -34,13 +35,14 @@ public class OrdineDAOImpl implements OrdineDAO {
 				tx.rollback();
 			e.printStackTrace();
 			return false;
-		} finally {
+		} finally {			
 			session.close();
+			
 		}
 	}
 
 	public Ordine getOrdine(int codOrdine) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -57,7 +59,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 
 	public boolean deleteOrdine(int codOrdine) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Ordine ordine = (Ordine) session.load(Ordine.class, codOrdine);
 		if (null != ordine) {
 			session.delete(ordine);
@@ -66,7 +68,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 
 	public boolean updateOrdine(Ordine ordine) {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.update(ordine);
 			return true;
@@ -79,7 +81,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 
 	public List<Ordine> listaOrdini() {
-		Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.beginTransaction();
 			List<Ordine> lista = ((List<Ordine>) session.createCriteria(Ordine.class).list());
