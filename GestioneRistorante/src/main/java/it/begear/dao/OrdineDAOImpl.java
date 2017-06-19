@@ -2,6 +2,7 @@ package it.begear.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
@@ -49,6 +50,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 		try {
 			tx = session.beginTransaction();
 			Ordine ordine = (Ordine) session.get(Ordine.class, codOrdine);
+			Hibernate.initialize(ordine.getProdotti());
 			return ordine;
 		} catch (HibernateException e) {
 			if (tx != null)

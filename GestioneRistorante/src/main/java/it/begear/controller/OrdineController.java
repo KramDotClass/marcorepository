@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -82,7 +83,6 @@ public class OrdineController {
 	public @ResponseBody ModelAndView orderDetail(@PathVariable("id") int id) {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
 		OrdineDAOImpl orDAO = new OrdineDAOImpl();
-		Hibernate.initialize(orDAO.getOrdine(id).getProdotti());
 		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
 		Map<String, Integer> mappaProdotti = new HashMap<String, Integer>();
 		for (Prodotto p : prodotti) {
