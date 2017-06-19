@@ -8,7 +8,7 @@ import it.begear.pojo.Prodotto;
 
 public interface OrdineDAO {
 
-	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti, double totale);
+	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti, double totale, int codOrdine);
 
 	public Ordine getOrdine(int codOrdine);
 

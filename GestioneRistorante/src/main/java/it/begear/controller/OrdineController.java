@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +68,7 @@ public class OrdineController {
 			i++;
 		}
 		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
-		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale);
+		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale, 0);
 		return "redirect:index";
 	}
 
@@ -84,17 +85,43 @@ public class OrdineController {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
 		OrdineDAOImpl orDAO = new OrdineDAOImpl();
 		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
-		Map<String, Integer> mappaProdotti = new HashMap<String, Integer>();
+		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
 		for (Prodotto p : prodotti) {
-			if (mappaProdotti.containsKey(p.getNome())) {
-				Integer value = mappaProdotti.get(p.getNome());
+			if (mappaProdotti.containsKey(p)) {
+				Integer value = mappaProdotti.get(p);
 				value++;
-				mappaProdotti.put(p.getNome(), value);
+				mappaProdotti.put(p, value);
 			} else {
-				mappaProdotti.put(p.getNome(), 1);
+				mappaProdotti.put(p, 1);
 			}
 		}
+		model.addObject("ordine", orDAO.getOrdine(id));
 		model.addObject("lista", mappaProdotti);
+		return model;
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ModelAndView modificaOrdine(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
+		int codOrdine = Integer.parseInt(request.getParameter("codOrdine"));
+		Ordine ordine = ordineDAO.getOrdine(codOrdine);
+		//Cameriere cameriere = new CameriereDAOImpl().getCameriere(ordine.getCameriere().getCodCameriere());
+		//ordineDAO.nuovoOrdine(cameriere, ordine.getNumTavolo(), ordine.getNumCoperti(), prodotti, totale, codOrdine);
+		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
+		List<Prodotto> prodotti = ordineDAO.getOrdine(codOrdine).getProdotti();
+		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
+		Integer value;
+		for(Prodotto p : listaProdotti){
+			mappaProdotti.put(p, 0);
+		}
+		for (Prodotto p : prodotti) {
+			if (mappaProdotti.containsKey(p)) {
+				value = mappaProdotti.get(p);
+				mappaProdotti.put(p, ++value);
+			}
+		}
+		model.addObject("menu", mappaProdotti);
+		model.addObject("ordine", ordine);
 		return model;
 	}
 

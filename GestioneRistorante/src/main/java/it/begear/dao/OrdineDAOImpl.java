@@ -20,16 +20,18 @@ public class OrdineDAOImpl implements OrdineDAO {
 	Ordine order;
 
 	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti,
-			double totale) {
+			double totale, int codOrdine) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+			if(session.get(Ordine.class, codOrdine) != null)
+				order = (Ordine) session.get(Ordine.class, codOrdine);
 			order.setNumCoperti(numCoperti);
 			order.setNumTavolo(numTavolo);
 			order.setCameriere(cameriere);
 			order.setListaProdotti(prodotti);
-			order.setTotale(totale);
+			order.setTotale(totale);	
 			session.save(order);
 			tx.commit();
 			return true;
