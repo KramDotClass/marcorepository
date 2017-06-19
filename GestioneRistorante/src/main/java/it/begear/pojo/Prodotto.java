@@ -22,7 +22,7 @@ public class Prodotto {
 	@Column(name = "prezzo")
 	private Double prezzo;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "prodotti")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "prodotti")
 	private List<Ordine> ordini;
 
 	public String getNome() {

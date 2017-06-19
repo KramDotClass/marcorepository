@@ -7,7 +7,7 @@
 	<table border="1px" align="center">
 		<tr>
 			<th>Codice ordine</th>
-			<th>Codice camerirere</th>
+			<th>Codice cameriere</th>
 			<th>Numero tavolo</th>
 			<th>Numero coperti</th>
 			<th>totale</th>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -78,17 +79,18 @@ public class OrdineController {
 	}
 
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ModelAndView orderDetail(@PathVariable("id") int id){
+	public @ResponseBody ModelAndView orderDetail(@PathVariable("id") int id) {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
-		List<Prodotto> prodotti = new OrdineDAOImpl().getOrdine(id).getProdotti();
-		Map<String, Integer> mappaProdotti = new HashMap();
-		for(Prodotto p : prodotti){
-			if(mappaProdotti.containsKey(p.getNome())){
+		OrdineDAOImpl orDAO = new OrdineDAOImpl();
+		Hibernate.initialize(orDAO.getOrdine(id).getProdotti());
+		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
+		Map<String, Integer> mappaProdotti = new HashMap<String, Integer>();
+		for (Prodotto p : prodotti) {
+			if (mappaProdotti.containsKey(p.getNome())) {
 				Integer value = mappaProdotti.get(p.getNome());
 				value++;
 				mappaProdotti.put(p.getNome(), value);
-			}
-			else {
+			} else {
 				mappaProdotti.put(p.getNome(), 1);
 			}
 		}
