@@ -22,7 +22,7 @@
 				<td>tav-${ordine.numTavolo}</td>
 				<td>${ordine.numCoperti}</td>
 				<td>${ordine.totale}&euro;</td>
-				<td><form action="update" method="post">
+				<td><form action="updatePage" method="post">
 						<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
 						<button>Modifica</button>
 					</form></td>

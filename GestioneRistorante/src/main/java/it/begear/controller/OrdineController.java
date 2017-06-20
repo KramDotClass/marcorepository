@@ -51,6 +51,11 @@ public class OrdineController {
 
 	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
 	public String inserisciOrdine(HttpServletRequest request) {
+		int codOrdine;
+		if(request.getParameter("codOrdine") != "")
+			codOrdine = Integer.parseInt(request.getParameter("codOrdine"));
+		else
+			codOrdine = 0;
 		int codCameriere = Integer.parseInt(request.getParameter("codCameriere"));
 		int numTavolo = Integer.parseInt(request.getParameter("numTavolo"));
 		int numCoperti = Integer.parseInt(request.getParameter("numCoperti"));
@@ -60,7 +65,7 @@ public class OrdineController {
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = new ArrayList<Prodotto>();
 		for (Prodotto p : listaProdotti) {
-			quantity = Integer.parseInt(request.getParameter("quantity" + i));
+			quantity = Integer.parseInt(request.getParameter("quantity" + p.getNome()));
 			for (int j = 0; j < quantity; j++) {
 				prodotti.add(p);
 				totale += p.getPrezzo();
@@ -68,7 +73,7 @@ public class OrdineController {
 			i++;
 		}
 		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
-		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale, 0);
+		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale, codOrdine);
 		return "redirect:index";
 	}
 
@@ -76,7 +81,11 @@ public class OrdineController {
 	public ModelAndView menu() {
 		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
-		model.addObject("menu", listaProdotti);
+		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
+		for(Prodotto p : listaProdotti){
+			mappaProdotti.put(p, 0);
+		}
+		model.addObject("menu", mappaProdotti);
 		return model;
 	}
 
@@ -100,25 +109,26 @@ public class OrdineController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePage", method = RequestMethod.POST)
 	public ModelAndView modificaOrdine(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
 		int codOrdine = Integer.parseInt(request.getParameter("codOrdine"));
 		Ordine ordine = ordineDAO.getOrdine(codOrdine);
-		//Cameriere cameriere = new CameriereDAOImpl().getCameriere(ordine.getCameriere().getCodCameriere());
-		//ordineDAO.nuovoOrdine(cameriere, ordine.getNumTavolo(), ordine.getNumCoperti(), prodotti, totale, codOrdine);
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = ordineDAO.getOrdine(codOrdine).getProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
-		Integer value;
+		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();		
 		for(Prodotto p : listaProdotti){
 			mappaProdotti.put(p, 0);
+			for(int i = 0; i < prodotti.size(); i++){
+				if(prodotti.get(i).getNome().equals(p.getNome())){
+					prodotti.set(i, p);
+				}
+			}
 		}
 		for (Prodotto p : prodotti) {
-			if (mappaProdotti.containsKey(p)) {
-				value = mappaProdotti.get(p);
-				mappaProdotti.put(p, ++value);
-			}
+				Integer value = mappaProdotti.get(p);
+				++value;
+				mappaProdotti.put(p, value);			
 		}
 		model.addObject("menu", mappaProdotti);
 		model.addObject("ordine", ordine);
