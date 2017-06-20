@@ -4,8 +4,12 @@
 <head>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/script.js"></script>
+	<style type="text/css">
+    <%@include file="ristorante.css" %>
+    </style>
 </head>
 <body>
+<img class="begear" src="<%=request.getContextPath()%>/resources/img/logo.png">
 	<table border="1px" align="center">
 		<tr>
 			<th>Codice ordine</th>

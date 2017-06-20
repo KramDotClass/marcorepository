@@ -4,13 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css">
+    <%@include file="dettaglio.css" %>
+    </style>
 <title>Dettaglio ordine</title>
 </head>
 <body>
+<img class="begear" src="<%=request.getContextPath()%>/resources/img/logo.png">
 	<table border="1px" align="center">
 
 		<tr>
-			<td colspan="3">Codice ordine: <c:out
+			<td colspan="3">CODICE ORDINE: <c:out
 					value="${ordine.codOrdine}" /></td>
 		</tr>
 		<tr>
@@ -26,11 +30,9 @@
 				<td><c:out value="${entry.key.prezzo}" /> &euro;</td>
 			</tr>
 		</c:forEach>
-		<tr>
-			<th colspan="3">Totale</th>
-		</tr>
 		<tr align="right">
-			<td colspan="3"><c:out value="${ordine.totale}" /> &euro;</td>
+		<th colspan="2">TOTALE</th>
+			<td colspan="1"><c:out value="${ordine.totale}" /> &euro;</td>
 		</tr>
 	</table>
 </body>
