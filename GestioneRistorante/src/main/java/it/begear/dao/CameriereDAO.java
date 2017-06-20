@@ -2,7 +2,7 @@ package it.begear.dao;
 
 import java.util.List;
 
-import it.begear.pojo.Cameriere;
+import it.begear.model.Cameriere;
 
 public interface CameriereDAO {
 
@@ -12,7 +12,7 @@ public interface CameriereDAO {
 
 	public List<Cameriere> getCamerieri();
 
-	public boolean updateCameriere(Cameriere cameriere);
+	//public boolean updateCameriere(Cameriere cameriere);
 
 	public boolean deleteCameriere(int codCameriere);
 

@@ -1,8 +1,5 @@
 package it.begear.dao;
 
-import it.begear.pojo.Cameriere;
-import it.begear.pojo.Ordine;
-
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -10,6 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import it.begear.model.Cameriere;
+import it.begear.model.Ordine;
 
 public class CameriereDAOImpl implements CameriereDAO {
 
@@ -20,6 +20,8 @@ public class CameriereDAOImpl implements CameriereDAO {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
+			if(nome == null || cognome == null)
+				throw new HibernateException("");
 			tx = session.beginTransaction();
 			cameriere.setNome(nome);
 			cameriere.setCognome(cognome);
@@ -43,6 +45,8 @@ public class CameriereDAOImpl implements CameriereDAO {
 		try {
 			tx = session.beginTransaction();
 			Cameriere cameriere = (Cameriere) session.get(Cameriere.class, new Integer(codCameriere));
+			if(cameriere == null)
+				throw new HibernateException("");
 			return cameriere;
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -54,7 +58,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 		}
 	}
 
-	public boolean updateCameriere(Cameriere cameriere) {
+	/*public boolean updateCameriere(Cameriere cameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.update(cameriere);
@@ -65,7 +69,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 		} finally {
 			session.close();
 		}
-	}
+	}*/
 
 	public boolean deleteCameriere(int codCameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();

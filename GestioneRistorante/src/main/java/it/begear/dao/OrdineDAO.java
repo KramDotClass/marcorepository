@@ -2,9 +2,9 @@ package it.begear.dao;
 
 import java.util.List;
 
-import it.begear.pojo.Cameriere;
-import it.begear.pojo.Ordine;
-import it.begear.pojo.Prodotto;
+import it.begear.model.Cameriere;
+import it.begear.model.Ordine;
+import it.begear.model.Prodotto;
 
 public interface OrdineDAO {
 
@@ -12,7 +12,7 @@ public interface OrdineDAO {
 
 	public Ordine getOrdine(int codOrdine);
 
-	public boolean updateOrdine(Ordine ordine);
+	//public boolean updateOrdine(Ordine ordine);
 
 	public boolean deleteOrdine(int codOrdine);
 	

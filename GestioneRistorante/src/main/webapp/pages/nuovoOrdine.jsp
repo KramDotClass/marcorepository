@@ -23,7 +23,7 @@
 				<td><input type="text" name="numTavolo" placeholder="TAVOLO"
 					value="${ordine.numTavolo}" required /></td>
 
-				<td><input type="number" min="0" name="numCoperti"
+				<td><input type="number" min="1" name="numCoperti"
 					placeholder="NUMERO COPERTI" value="${ordine.numCoperti}" value="1"
 					required /></td>
 			</tr>

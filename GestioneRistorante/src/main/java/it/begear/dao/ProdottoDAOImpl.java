@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import it.begear.pojo.Prodotto;
+import it.begear.model.Prodotto;
 
 public class ProdottoDAOImpl implements ProdottoDAO {
 
@@ -19,6 +19,8 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
+			if(nome == null || tipologia == null || prezzo <= 0)
+				throw new HibernateException("");
 			tx = session.beginTransaction();
 			prodotto.setNome(nome);
 			prodotto.setTipologia(tipologia);
@@ -54,7 +56,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 
 	}
 
-	public boolean updateProdotto(Prodotto prodotto) {
+	/*public boolean updateProdotto(Prodotto prodotto) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		try {
 			session.update(prodotto);
@@ -65,7 +67,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 		} finally {
 			session.close();
 		}
-	}
+	}*/
 
 	public boolean deleteProdotto(String nome) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();

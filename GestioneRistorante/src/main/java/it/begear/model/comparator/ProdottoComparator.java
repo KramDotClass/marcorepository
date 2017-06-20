@@ -1,8 +1,8 @@
-package it.begear.pojo.comparator;
+package it.begear.model.comparator;
 
 import java.util.Comparator;
 
-import it.begear.pojo.Prodotto;
+import it.begear.model.Prodotto;
 
 public class ProdottoComparator implements Comparator<Prodotto> {
 

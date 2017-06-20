@@ -1,15 +1,12 @@
 package it.begear.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,9 +21,9 @@ import it.begear.dao.CameriereDAOImpl;
 import it.begear.dao.OrdineDAO;
 import it.begear.dao.OrdineDAOImpl;
 import it.begear.dao.ProdottoDAOImpl;
-import it.begear.pojo.Cameriere;
-import it.begear.pojo.Ordine;
-import it.begear.pojo.Prodotto;
+import it.begear.model.Cameriere;
+import it.begear.model.Ordine;
+import it.begear.model.Prodotto;
 
 @Controller
 public class OrdineController {

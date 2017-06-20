@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.begear.dao.CameriereDAO;
-import it.begear.pojo.Cameriere;
+import it.begear.model.Cameriere;
 
 @Controller
 public class CameriereController {

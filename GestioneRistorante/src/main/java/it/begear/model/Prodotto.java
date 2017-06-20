@@ -1,4 +1,4 @@
-package it.begear.pojo;
+package it.begear.model;
 
 import java.util.List;
 import javax.persistence.Column;
@@ -58,9 +58,15 @@ public class Prodotto implements Comparable<Prodotto> {
 	}
 
 	public int compareTo(Prodotto o) {
-		if (this.getNome().compareTo(o.getNome()) == 0)
-			return 0;
-		else if (this.getNome().compareTo(o.getNome()) > 0)
+		if (this.getTipologia().compareTo(o.getTipologia()) == 0) {
+			if (this.getNome().compareTo(o.getNome()) == 0) {
+				return 0;
+			} else if (this.getNome().compareTo(o.getNome()) > 0)
+				return 1;
+			else
+				return -1;
+
+		} else if (this.getTipologia().compareTo(o.getTipologia()) > 0)
 			return 1;
 		else
 			return -1;

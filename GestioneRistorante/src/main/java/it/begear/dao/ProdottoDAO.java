@@ -2,7 +2,7 @@ package it.begear.dao;
 
 import java.util.List;
 
-import it.begear.pojo.Prodotto;
+import it.begear.model.Prodotto;
 
 public interface ProdottoDAO {
 
@@ -10,7 +10,7 @@ public interface ProdottoDAO {
 
 	public Prodotto getProdotto(String nome);
 
-	public boolean updateProdotto(Prodotto prodotto);
+	//public boolean updateProdotto(Prodotto prodotto);
 
 	public boolean deleteProdotto(String nome);
 	

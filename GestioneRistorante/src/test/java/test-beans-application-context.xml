@@ -11,32 +11,17 @@
    http://www.springframework.org/schema/web-services
    http://www.springframework.org/schema/web-services/web-services.xsd">
 
-	<mvc:annotation-driven />
-
-
-	<context:component-scan base-package="it.begear.controller" />
-
-
-	<context:annotation-config />
-
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-
-
-	<bean id="cameriereService" class="it.begear.dao.CameriereDAOImpl" />
 
 	<bean id="ordineDAO" class="it.begear.dao.OrdineDAOImpl" />
-
-	<bean id="prodottoService" class="it.begear.dao.ProdottoDAOImpl" />
-
+	
+	<bean id="cameriereDAO" class="it.begear.dao.CameriereDAOImpl" />
+	
+	<bean id="prodottoDAO" class="it.begear.dao.ProdottoDAOImpl" />
+	
 	<bean id="order" class="it.begear.model.Ordine" />
-
+	
+	<bean id="product" class="it.begear.model.Prodotto" />
+	
 	<bean id="waiter" class="it.begear.model.Cameriere" />
-
-	<bean id="prodotto" class="it.begear.model.Prodotto" />
 
 </beans>

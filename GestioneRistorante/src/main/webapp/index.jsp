@@ -19,7 +19,7 @@
 			<tr align="center">
 				<td><a href="javascript:apri('ordine/${ordine.codOrdine}');">Ord-${ordine.codOrdine}</a></td>
 				<td>Cam-${ordine.cameriere.codCameriere}</td>
-				<td>tav-${ordine.numTavolo}</td>
+				<td>Tav-${ordine.numTavolo}</td>
 				<td>${ordine.numCoperti}</td>
 				<td>${ordine.totale}&euro;</td>
 				<td><form action="updatePage" method="post">

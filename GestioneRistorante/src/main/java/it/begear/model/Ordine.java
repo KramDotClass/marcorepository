@@ -1,4 +1,4 @@
-package it.begear.pojo;
+package it.begear.model;
 
 import java.util.List;
 import javax.persistence.JoinTable;
