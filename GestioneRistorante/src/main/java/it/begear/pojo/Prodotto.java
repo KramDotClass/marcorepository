@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "prodotto")
-public class Prodotto {
+public class Prodotto implements Comparable<Prodotto> {
 
 	@Id
 	@Column(name = "nome")
@@ -55,6 +55,16 @@ public class Prodotto {
 
 	public void setOrdini(List<Ordine> ordini) {
 		this.ordini = ordini;
+	}
+
+	public int compareTo(Prodotto o) {
+		if (this.getNome().compareTo(o.getNome()) == 0)
+			return 0;
+		else if (this.getNome().compareTo(o.getNome()) > 0)
+			return 1;
+		else
+			return -1;
+
 	}
 
 }

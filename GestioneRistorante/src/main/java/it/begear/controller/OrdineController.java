@@ -60,7 +60,6 @@ public class OrdineController {
 		int numTavolo = Integer.parseInt(request.getParameter("numTavolo"));
 		int numCoperti = Integer.parseInt(request.getParameter("numCoperti"));
 		int quantity;
-		int i = 0;
 		double totale = 0;
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = new ArrayList<Prodotto>();
@@ -70,7 +69,6 @@ public class OrdineController {
 				prodotti.add(p);
 				totale += p.getPrezzo();
 			}
-			i++;
 		}
 		Cameriere cameriere = new CameriereDAOImpl().getCameriere(codCameriere);
 		ordineDAO.nuovoOrdine(cameriere, numTavolo, numCoperti, prodotti, totale, codOrdine);
@@ -81,7 +79,7 @@ public class OrdineController {
 	public ModelAndView menu() {
 		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();
 		for(Prodotto p : listaProdotti){
 			mappaProdotti.put(p, 0);
 		}
@@ -94,7 +92,7 @@ public class OrdineController {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
 		OrdineDAOImpl orDAO = new OrdineDAOImpl();
 		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();
 		for (Prodotto p : prodotti) {
 			if (mappaProdotti.containsKey(p)) {
 				Integer value = mappaProdotti.get(p);
@@ -116,7 +114,7 @@ public class OrdineController {
 		Ordine ordine = ordineDAO.getOrdine(codOrdine);
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = ordineDAO.getOrdine(codOrdine).getProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new HashMap<Prodotto, Integer>();		
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();		
 		for(Prodotto p : listaProdotti){
 			mappaProdotti.put(p, 0);
 			for(int i = 0; i < prodotti.size(); i++){
