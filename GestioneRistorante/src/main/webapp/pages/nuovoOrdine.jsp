@@ -48,6 +48,8 @@
 		</table>
 		<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
 	</form>
-
+	<form action="index" method="get">
+		<button>Home</button>
+	</form>
 </body>
 </html>
