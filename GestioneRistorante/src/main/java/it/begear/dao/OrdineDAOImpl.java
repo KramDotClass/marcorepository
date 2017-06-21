@@ -1,11 +1,12 @@
 package it.begear.dao;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionException;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Autowired
 	Ordine order;
+	
+	Logger logger = Logger.getAnonymousLogger();
 
 	public boolean nuovoOrdine(Cameriere cameriere, int numTavolo, int numCoperti, List<Prodotto> prodotti,
 			double totale, int codOrdine) {
@@ -38,7 +41,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		} finally {
 			session.close();
@@ -59,7 +62,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			return null;
 		} finally {
 			session.close();
@@ -80,8 +83,10 @@ public class OrdineDAOImpl implements OrdineDAO {
 				return true;
 			}
 		} catch (HibernateException | NullPointerException x) {
-			tx.rollback();
-			x.printStackTrace();
+			if(tx == null)
+				throw new NullPointerException();
+			tx.rollback();			
+			logger.log(Level.SEVERE, x.getMessage(), x);
 			return false;
 		} finally {
 			session.close();
@@ -97,8 +102,8 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	public List<Ordine> listaOrdini() {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
-
 		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<Ordine> lista = ((List<Ordine>) session.createCriteria(Ordine.class).list());
 		session.close();
 		return lista;

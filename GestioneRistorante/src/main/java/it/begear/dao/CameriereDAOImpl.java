@@ -1,6 +1,8 @@
 package it.begear.dao;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,12 +11,13 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.begear.model.Cameriere;
-import it.begear.model.Ordine;
 
 public class CameriereDAOImpl implements CameriereDAO {
 
 	@Autowired
 	Cameriere cameriere;
+	
+	Logger logger = Logger.getAnonymousLogger();
 
 	public boolean creaCameriere(String nome, String cognome) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
@@ -32,6 +35,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 			if (tx != null)
 				tx.rollback();
 			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		} finally {
 			session.close();
@@ -44,7 +48,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Cameriere cameriere = (Cameriere) session.get(Cameriere.class, new Integer(codCameriere));
+			Cameriere cameriere = (Cameriere) session.get(Cameriere.class, codCameriere);
 			if (cameriere == null)
 				throw new HibernateException("");
 			return cameriere;
@@ -52,6 +56,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 			if (tx != null)
 				tx.rollback();
 			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			return null;
 		} finally {
 			session.close();
@@ -67,7 +72,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 
 	public boolean deleteCameriere(int codCameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
-		cameriere = (Cameriere) session.load(Cameriere.class, new Integer(codCameriere));
+		cameriere = (Cameriere) session.get(Cameriere.class, codCameriere);
 		if (null != cameriere) {
 			session.delete(cameriere);
 		}
@@ -76,9 +81,8 @@ public class CameriereDAOImpl implements CameriereDAO {
 
 	public List<Cameriere> getCamerieri() {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
-		Transaction tx = null;
-
-		tx = session.beginTransaction();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<Cameriere> camerieri = ((List<Cameriere>) session.createCriteria(Cameriere.class).list());
 		session.close();
 		return camerieri;

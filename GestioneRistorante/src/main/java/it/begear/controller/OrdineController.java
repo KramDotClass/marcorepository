@@ -30,6 +30,8 @@ public class OrdineController {
 
 	@Autowired
 	private OrdineDAO ordineDAO;
+	
+	private final static String COD_ORDINE = "codOrdine";
 
 	@RequestMapping(value = "/delOrdine", method = RequestMethod.GET)
 	public String delOrdine(@RequestParam("codOrdine") int id) {
@@ -49,8 +51,8 @@ public class OrdineController {
 	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
 	public String inserisciOrdine(HttpServletRequest request) {
 		int codOrdine;
-		if(request.getParameter("codOrdine") != "")
-			codOrdine = Integer.parseInt(request.getParameter("codOrdine"));
+		if("".equals(request.getParameter(COD_ORDINE)))
+			codOrdine = Integer.parseInt(request.getParameter(COD_ORDINE));
 		else
 			codOrdine = 0;
 		int codCameriere = Integer.parseInt(request.getParameter("codCameriere"));
@@ -59,7 +61,7 @@ public class OrdineController {
 		int quantity;
 		double totale = 0;
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
-		List<Prodotto> prodotti = new ArrayList<Prodotto>();
+		List<Prodotto> prodotti = new ArrayList<>();
 		for (Prodotto p : listaProdotti) {
 			quantity = Integer.parseInt(request.getParameter("quantity" + p.getNome()));
 			for (int j = 0; j < quantity; j++) {
@@ -76,7 +78,7 @@ public class OrdineController {
 	public ModelAndView menu() {
 		ModelAndView model = new ModelAndView("pages/nuovoOrdine");
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<>();
 		for(Prodotto p : listaProdotti){
 			mappaProdotti.put(p, 0);
 		}
@@ -89,7 +91,7 @@ public class OrdineController {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
 		OrdineDAOImpl orDAO = new OrdineDAOImpl();
 		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<>();
 		for (Prodotto p : prodotti) {
 			if (mappaProdotti.containsKey(p)) {
 				Integer value = mappaProdotti.get(p);
@@ -111,7 +113,7 @@ public class OrdineController {
 		Ordine ordine = ordineDAO.getOrdine(codOrdine);
 		List<Prodotto> listaProdotti = new ProdottoDAOImpl().listaProdotti();
 		List<Prodotto> prodotti = ordineDAO.getOrdine(codOrdine).getProdotti();
-		Map<Prodotto, Integer> mappaProdotti = new TreeMap<Prodotto, Integer>();		
+		Map<Prodotto, Integer> mappaProdotti = new TreeMap<>();		
 		for(Prodotto p : listaProdotti){
 			mappaProdotti.put(p, 0);
 			for(int i = 0; i < prodotti.size(); i++){
