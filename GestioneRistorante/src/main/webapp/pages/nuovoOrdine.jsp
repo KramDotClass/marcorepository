@@ -13,31 +13,13 @@
 <body>
 <img class="begear" src="<%=request.getContextPath()%>/resources/img/logo.png">
 	<form action="newOrder" method="post">
-<<<<<<< HEAD
-	<c:if test = "${ordine.codOrdine != 0}">
-		<h3 align ="center">Codice Ordine: Ord-${ordine.codOrdine}</h3>
-	</c:if>
-		<table border="1px" align="center">
-=======
 		<table align="center">
->>>>>>> 6802ac5f6d07fae03f28c2bce4f9d6b6bf47feec
 			<tr>
 				<th>CODICE CAMERIERE</th>
 				<th>NUMERO TAVOLO</th>
 				<th>NUMERO COPERTI</th>
 			</tr>
 			<tr>
-<<<<<<< HEAD
-				<td><input type="number" min="0" name="codCameriere" 
-					placeholder="ID CAMERIERE" value="${ordine.cameriere.codCameriere}"
-					required /></td>
-
-				<td><input type="number" min="1" name="numTavolo" placeholder="TAVOLO"
-					value="${ordine.numTavolo}" required /></td>
-
-				<td><input type="number" min="1" name="numCoperti"
-					placeholder="NUMERO COPERTI" value="${ordine.numCoperti}" value="1"
-=======
 				<td><input type="text" name="codCameriere"
 					placeholder="Inserisci ID cameriere" value="${ordine.cameriere.codCameriere}"
 					required /></td>
@@ -47,7 +29,6 @@
 
 				<td><input type="number" min="0" name="numCoperti"
 					placeholder="Inserisci numero coperti" value="${ordine.numCoperti}" value="1"
->>>>>>> 6802ac5f6d07fae03f28c2bce4f9d6b6bf47feec
 					required /></td>
 			</tr>
 			<tr>
