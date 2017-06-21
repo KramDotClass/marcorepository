@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">
-    <%@include file="dettaglio.css" %>
+    <%@include file="/resources/css/dettaglio.css" %>
     </style>
 <title>Dettaglio ordine</title>
 </head>

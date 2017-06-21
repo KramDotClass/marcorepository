@@ -1,0 +1,80 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-image:
+		url(https://st.depositphotos.com/3470617/4920/v/950/depositphotos_49203401-stock-illustration-pizza-background.jpg);
+	font-family: serif;
+}
+
+img.begear {
+	width: 500px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+button {
+	width: 100%;
+}
+
+.bottone {
+	width: 35%;
+	background-color: red;
+	border: none;
+	color: white;
+	font-weight: bold;
+	padding: 0;
+	height: 25px;
+	width: 20%;
+}
+
+.bottone:hover {
+	background-color: yellow;
+	color: black;
+}
+
+#prodotto {
+	font-family: Courier New;
+	width: 65%;
+	text-align: center;
+	font-weight: bold;
+}
+
+input[type="number"].quantity::-webkit-inner-spin-button, input[type=number].quantity::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+input[type="number"].quantity
+	{
+	text-align: center;
+	width: 30%;
+	padding: 5% 2%;
+	line-height: 10%;
+	font-size: 1.2em;
+	border-radius: 0.5em;
+}
+
+input[type="number"].fields {
+	text-align: center;
+	width: 80%;
+	padding: 5% 2%;
+	line-height: 10%;
+	font-size: 0.6em;
+	border-radius: 0.5em;
+}
+
+table.insert {
+	border: none;
+	width: 40%;
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+
+.buttonsPlusMinun {
+	font-size: 1.2em;
+	border-radius: 1em;
+	background: red;
+}

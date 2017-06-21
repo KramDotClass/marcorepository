@@ -33,7 +33,7 @@ public class OrdineController {
 	
 	private final static String COD_ORDINE = "codOrdine";
 
-	@RequestMapping(value = "/delOrdine", method = RequestMethod.GET)
+	@RequestMapping(value = "/delOrdine", method = RequestMethod.POST)
 	public String delOrdine(@RequestParam("codOrdine") int id) {
 		ordineDAO.deleteOrdine(id);
 		return "redirect:index";

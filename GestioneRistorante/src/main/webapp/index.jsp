@@ -5,7 +5,7 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 	<style type="text/css">
-    <%@include file="ristorante.css" %>
+    <%@include file="/resources/css/ristorante.css" %>
     </style>
 </head>
 <body>
@@ -26,22 +26,30 @@
 				<td>Tav-${ordine.numTavolo}</td>
 				<td>${ordine.numCoperti}</td>
 				<td>${ordine.totale}&euro;</td>
-				<td><form action="updatePage" method="post">
+				<td class="transparent"><form action="updatePage" method="post">
+						<div class="image-upload">
+							<label for="file-edit${ordine.codOrdine}"> <img src="<%=request.getContextPath()%>/resources/img/edit.png" width="40%" height="40%" />
+							</label> <input id="file-edit${ordine.codOrdine}" type="submit" />
+						</div>
 						<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
-						<button>Modifica</button>
+			
 					</form></td>
-				<td><form action="delOrdine" method="get" >
+				<td class="transparent"><form action="delOrdine" method="post" >
 		
 					<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
-					<input type="submit" value="Cancella" onclick="return confirm('Sei sicuro?')"  />
+					<div class="image-upload">
+							<label for="file-delete${ordine.codOrdine}"> <img src="<%=request.getContextPath()%>/resources/img/delete.png"
+								width="40%" height="40%" />
+							</label> <input id="file-delete${ordine.codOrdine}" type="submit" onclick="return confirm('Sei sicuro?')"  />
+						</div>
 					</form></td>
 					
 			</tr>
 		</c:forEach>
-		<tr align="center">
-			<td colspan="7">
+		<tr align="center" class="transparent noaction">
+			<td colspan="7" class="transparent noaction">
 				<form action="nuovoOrdine">
-					<input type="submit" value="INSERISCI NUOVO ORDINE" />
+					<input type="submit" value="+" class="mod" />
 				</form>
 			</td>
 		</tr>
