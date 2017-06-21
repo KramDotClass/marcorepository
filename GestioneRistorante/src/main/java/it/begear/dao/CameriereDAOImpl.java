@@ -20,7 +20,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
 		try {
-			if(nome == null || cognome == null)
+			if (nome == null || cognome == null)
 				throw new HibernateException("");
 			tx = session.beginTransaction();
 			cameriere.setNome(nome);
@@ -45,7 +45,7 @@ public class CameriereDAOImpl implements CameriereDAO {
 		try {
 			tx = session.beginTransaction();
 			Cameriere cameriere = (Cameriere) session.get(Cameriere.class, new Integer(codCameriere));
-			if(cameriere == null)
+			if (cameriere == null)
 				throw new HibernateException("");
 			return cameriere;
 		} catch (HibernateException e) {
@@ -58,18 +58,12 @@ public class CameriereDAOImpl implements CameriereDAO {
 		}
 	}
 
-	/*public boolean updateCameriere(Cameriere cameriere) {
-		Session session = new Configuration().configure().buildSessionFactory().openSession();
-		try {
-			session.update(cameriere);
-			return true;
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			session.close();
-		}
-	}*/
+	/*
+	 * public boolean updateCameriere(Cameriere cameriere) { Session session =
+	 * new Configuration().configure().buildSessionFactory().openSession(); try
+	 * { session.update(cameriere); return true; } catch (HibernateException e)
+	 * { e.printStackTrace(); return false; } finally { session.close(); } }
+	 */
 
 	public boolean deleteCameriere(int codCameriere) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
@@ -83,18 +77,12 @@ public class CameriereDAOImpl implements CameriereDAO {
 	public List<Cameriere> getCamerieri() {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			List<Cameriere> camerieri = ((List<Cameriere>) session.createCriteria(Cameriere.class).list());
-			return camerieri;
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-			return null;
-		} finally {
-			session.close();
-		}
+
+		tx = session.beginTransaction();
+		List<Cameriere> camerieri = ((List<Cameriere>) session.createCriteria(Cameriere.class).list());
+		session.close();
+		return camerieri;
+
 	}
 
 }

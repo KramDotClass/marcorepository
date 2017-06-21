@@ -43,7 +43,9 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Prodotto prodotto = (Prodotto) session.load(Prodotto.class, nome);
+			Prodotto prodotto = (Prodotto) session.get(Prodotto.class, nome);
+			if(prodotto == null)
+				throw new HibernateException("");
 			return prodotto;
 		} catch (HibernateException e) {
 			if (tx != null)

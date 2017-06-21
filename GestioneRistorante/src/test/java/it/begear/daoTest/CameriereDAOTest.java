@@ -19,7 +19,7 @@ import it.begear.model.Cameriere;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/test-beans-application-context.xml" })
 @Transactional
-public class CamerierDAOTest {
+public class CameriereDAOTest {
 
 	@Autowired
 	OrdineDAOImpl ordDao;
@@ -64,7 +64,7 @@ public class CamerierDAOTest {
 	
 	@Test
 	public void deleteCameriereTest(){
-		assertTrue(camDao.deleteCameriere(2));
+		assertTrue(camDao.deleteCameriere(3));
 	}
 	
 	@Test

@@ -9,6 +9,9 @@
 </head>
 <body>
 	<form action="newOrder" method="post">
+	<c:if test = "${ordine.codOrdine != 0}">
+		<h3 align ="center">Codice Ordine: Ord-${ordine.codOrdine}</h3>
+	</c:if>
 		<table border="1px" align="center">
 			<tr>
 				<th>Codice cameriere</th>
@@ -16,11 +19,11 @@
 				<th>Numero coperti</th>
 			</tr>
 			<tr>
-				<td><input type="text" name="codCameriere"
+				<td><input type="number" min="0" name="codCameriere" 
 					placeholder="ID CAMERIERE" value="${ordine.cameriere.codCameriere}"
 					required /></td>
 
-				<td><input type="text" name="numTavolo" placeholder="TAVOLO"
+				<td><input type="number" min="1" name="numTavolo" placeholder="TAVOLO"
 					value="${ordine.numTavolo}" required /></td>
 
 				<td><input type="number" min="1" name="numCoperti"

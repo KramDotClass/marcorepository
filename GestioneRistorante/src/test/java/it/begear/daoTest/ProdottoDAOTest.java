@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.begear.dao.CameriereDAOImpl;
 import it.begear.dao.OrdineDAOImpl;
 import it.begear.dao.ProdottoDAOImpl;
+import it.begear.model.Prodotto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/test-beans-application-context.xml" })
@@ -38,17 +39,37 @@ public class ProdottoDAOTest {
 	public void endTest() {
 		System.out.println("Fine test unitario...");
 	}
-	
+
 	@Test
-	public void creaProdottoTest(){
-		assertTrue(prodDao.creaProdotto("Margherita", "pizza", 3.5));
+	public void creaProdottoTest() {
+		assertTrue(prodDao.creaProdotto("Carne umana", "secondo", 40.0));
 	}
-	
+
 	@Test
-	public void creaProdottoTestNull(){
+	public void creaProdottoTestNull() {
 		assertFalse(prodDao.creaProdotto("Margherita", null, 3.5));
 	}
+
+	@Test
+	public void getProdottoTest() {
+		Prodotto prod = prodDao.getProdotto("Margherita");
+		assertNotNull(prod);
+	}
 	
+	@Test
+	public void getProdottoTestNull() {
+		Prodotto prod = prodDao.getProdotto("Peppa pig");
+		assertNull(prod);
+	}
 	
+	@Test
+	public void deleteProdottoTest(){
+		assertTrue(prodDao.deleteProdotto("Carne manzo"));
+	}
+	
+	@Test
+	public void getListaProdotti(){
+		assertNotNull(prodDao.listaProdotti());
+	}
 
 }

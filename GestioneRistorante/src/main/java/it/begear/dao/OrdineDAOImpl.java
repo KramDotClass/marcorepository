@@ -73,10 +73,12 @@ public class OrdineDAOImpl implements OrdineDAO {
 		try {
 			if (ordine == null)
 				throw new HibernateException("");
-			tx = session.beginTransaction();
-			session.delete(ordine);
-			session.getTransaction().commit();
-			return true;
+			else {
+				tx = session.beginTransaction();
+				session.delete(ordine);
+				session.getTransaction().commit();
+				return true;
+			}
 		} catch (HibernateException | NullPointerException x) {
 			tx.rollback();
 			x.printStackTrace();

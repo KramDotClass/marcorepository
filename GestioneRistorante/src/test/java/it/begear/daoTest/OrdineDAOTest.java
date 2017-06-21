@@ -90,12 +90,12 @@ public class OrdineDAOTest {
 
 	@Test
 	public void deleteOrdineTest() {
-		ordDao.deleteOrdine(60);
+		ordDao.deleteOrdine(58);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void deleteOrdineTestNull() {
-		ordDao.deleteOrdine(0);
+		assertFalse(ordDao.deleteOrdine(0));
 	}
 	
 	@Test
