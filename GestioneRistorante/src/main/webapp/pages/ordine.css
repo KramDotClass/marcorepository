@@ -1,0 +1,72 @@
+@CHARSET "ISO-8859-1";
+body {
+	background-image: url(https://st.depositphotos.com/3470617/4920/v/950/depositphotos_49203401-stock-illustration-pizza-background.jpg);
+	font-family: serif;
+	}
+img.begear {
+	
+	width: 500px;
+	height: auto;
+	 display: block;
+	margin:0 auto;
+	
+}
+table {
+	width: 100%;
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+button {
+	width: 100%;
+}
+
+
+tr {
+	background-color: orange;
+	align: center;
+}
+
+tr:hover {
+    background-color: yellow;
+}
+
+table col {
+    background-color: #80C9FF;
+    color: #000000;
+}
+  
+table col.even {
+    background-color: #BFE4FF;
+    color: #000000;
+}
+
+input {
+	width: 100%;
+}
+
+#bottone {
+	width: 35%;
+	 
+  background: url('http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg') no-repeat center;
+  border: none;      
+  color: white;        
+  font-weight: bold;  
+  padding: 0;         
+  height: 25px;       
+  width: 100%;  
+}
+
+th {
+	font-family: Courier New;
+	text-align: center; 
+	font-weight: bold;
+	}
+
+#prodotto {
+	font-family: Courier New;
+	width: 65%;
+	text-align: center; 
+	font-weight: bold;
+}
+
