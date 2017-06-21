@@ -12,6 +12,10 @@
 </head>
 <body>
 <img class="begear" src="<%=request.getContextPath()%>/resources/img/logo.png">
+      	<c:if test = "${ordine.codOrdine > 0 }">
+        	<h3 align = "center">Codice Ordine: Ord-${ordine.codOrdine}</h3>
+      	</c:if>
+      	
 	<form action="newOrder" method="post">
 		<table align="center">
 			<tr>
@@ -20,14 +24,14 @@
 				<th>NUMERO COPERTI</th>
 			</tr>
 			<tr>
-				<td><input type="text" name="codCameriere"
+				<td><input type="number" min="1" name="codCameriere"
 					placeholder="Inserisci ID cameriere" value="${ordine.cameriere.codCameriere}"
 					required /></td>
 
-				<td><input type="text" name="numTavolo" placeholder="Inserisci numero tavolo"
+				<td><input type="number" min="1" name="numTavolo" placeholder="Inserisci numero tavolo"
 					value="${ordine.numTavolo}" required /></td>
 
-				<td><input type="number" min="0" name="numCoperti"
+				<td><input type="number" min="1" name="numCoperti"
 					placeholder="Inserisci numero coperti" value="${ordine.numCoperti}" value="1"
 					required /></td>
 			</tr>
@@ -37,7 +41,7 @@
 			<c:forEach items="${menu}" var="menuEntry">
 				<tr>
 					<td id="prodotto" colspan="2">${menuEntry.key.nome}</td>
-					<td ><input type="number" min="0"
+					<td ><input type="number" min="0" max="100"
 						name="quantity${menuEntry.key.nome}" value="${menuEntry.value}" /></td>
 				</tr>
 			</c:forEach>

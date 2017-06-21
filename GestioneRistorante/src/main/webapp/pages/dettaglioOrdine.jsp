@@ -14,7 +14,7 @@
 	<table border="1px" align="center">
 
 		<tr>
-			<td colspan="3">CODICE ORDINE: <c:out
+			<td colspan="3">Codice Ordine: Ord-<c:out
 					value="${ordine.codOrdine}" /></td>
 		</tr>
 		<tr>
