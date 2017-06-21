@@ -51,7 +51,7 @@ public class OrdineController {
 	@RequestMapping(value = "/newOrder", method = RequestMethod.POST)
 	public String inserisciOrdine(HttpServletRequest request) {
 		int codOrdine;
-		if("".equals(request.getParameter(COD_ORDINE)))
+		if(!"".equals(request.getParameter(COD_ORDINE)))
 			codOrdine = Integer.parseInt(request.getParameter(COD_ORDINE));
 		else
 			codOrdine = 0;

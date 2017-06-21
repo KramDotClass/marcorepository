@@ -42,7 +42,7 @@
 				<tr>
 					<td id="prodotto" colspan="2">${menuEntry.key.nome}</td>
 					<td ><input type="number" min="0" max="100"
-						name="quantity${menuEntry.key.nome}" value="${menuEntry.value}" /></td>
+						name="quantity${menuEntry.key.nome}" value="${menuEntry.value}" required /></td>
 				</tr>
 			</c:forEach>
 			<tr id="conferma" style="border:0px" align="right" >
@@ -53,7 +53,7 @@
 		<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
 	</form>
 	<form action="index" method="get">
-		<button>Home</button>
+		<button id = "bottone">HOME</button>
 	</form>
 </body>
 </html>

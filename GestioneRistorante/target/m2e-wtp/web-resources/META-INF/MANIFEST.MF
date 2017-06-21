@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Begear
-Build-Jdk: 1.8.0_101
+Built-By: BeGear-AsusF555L
+Build-Jdk: 1.8.0_77
 Created-By: Maven Integration for Eclipse
 

@@ -30,10 +30,12 @@
 						<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
 						<button>Modifica</button>
 					</form></td>
-				<td><form action="delOrdine" method="get">
-						<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
-						<button>Elimina</button>
+				<td><form action="delOrdine" method="get" >
+		
+					<input type="hidden" value="${ordine.codOrdine}" name="codOrdine" />
+					<input type="submit" value="Cancella" onclick="return confirm('Sei sicuro?')"  />
 					</form></td>
+					
 			</tr>
 		</c:forEach>
 		<tr align="center">
