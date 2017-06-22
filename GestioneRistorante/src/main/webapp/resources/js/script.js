@@ -11,4 +11,3 @@ function increment(nome) {
 function decrement(nome){
     document.getElementById("myNumber"+nome).stepDown();
 }
-

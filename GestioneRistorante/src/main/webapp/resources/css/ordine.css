@@ -26,6 +26,7 @@ button {
 	padding: 0;
 	height: 25px;
 	width: 20%;
+	border-radius: 0.6em;
 }
 
 .bottone:hover {

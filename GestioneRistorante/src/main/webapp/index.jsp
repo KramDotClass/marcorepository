@@ -2,6 +2,8 @@
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <head>
+<meta name="viewport" content="width=device-width, user-scalable=no, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 	<style type="text/css">

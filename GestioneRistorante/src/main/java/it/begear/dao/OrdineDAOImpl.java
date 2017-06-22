@@ -35,7 +35,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 			order.setCameriere(cameriere);
 			order.setListaProdotti(prodotti);
 			order.setTotale(totale);
-			session.save(order);
+			session.saveOrUpdate(order);
 			tx.commit();
 			return true;
 		} catch (HibernateException e) {
@@ -54,11 +54,11 @@ public class OrdineDAOImpl implements OrdineDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Ordine ordine = (Ordine) session.get(Ordine.class, codOrdine);
-			if (ordine == null)
+			order = (Ordine) session.get(Ordine.class, codOrdine);
+			if (order == null)
 				throw new HibernateException("");
-			Hibernate.initialize(ordine.getProdotti());
-			return ordine;
+			Hibernate.initialize(order.getProdotti());
+			return order;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -71,15 +71,15 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	public boolean deleteOrdine(int codOrdine) {
 		Session session = new Configuration().configure().buildSessionFactory().openSession();
-		Ordine ordine = (Ordine) session.get(Ordine.class, codOrdine);
+		order = (Ordine) session.get(Ordine.class, codOrdine);
 		Transaction tx = null;
 		try {
-			if (ordine == null)
+			if (order == null)
 				throw new HibernateException("");
 			else {
 				tx = session.beginTransaction();
-				session.delete(ordine);
-				session.getTransaction().commit();
+				session.delete(order);
+				tx.commit();
 				return true;
 			}
 		} catch (HibernateException | NullPointerException x) {

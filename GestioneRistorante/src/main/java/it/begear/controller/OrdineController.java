@@ -34,12 +34,12 @@ public class OrdineController {
 	private final static String COD_ORDINE = "codOrdine";
 
 	@RequestMapping(value = "/delOrdine", method = RequestMethod.POST)
-	public String delOrdine(@RequestParam("codOrdine") int id) {
+	public String delOrdine(@RequestParam(COD_ORDINE) int id) {
 		ordineDAO.deleteOrdine(id);
 		return "redirect:index";
 	}
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/index")
 	public ModelAndView getOrdini() {
 
 		ModelAndView model = new ModelAndView("index");
@@ -89,8 +89,7 @@ public class OrdineController {
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ModelAndView orderDetail(@PathVariable("id") int id) {
 		ModelAndView model = new ModelAndView("pages/dettaglioOrdine");
-		OrdineDAOImpl orDAO = new OrdineDAOImpl();
-		List<Prodotto> prodotti = orDAO.getOrdine(id).getProdotti();
+		List<Prodotto> prodotti = ordineDAO.getOrdine(id).getProdotti();
 		Map<Prodotto, Integer> mappaProdotti = new TreeMap<>();
 		for (Prodotto p : prodotti) {
 			if (mappaProdotti.containsKey(p)) {
@@ -101,7 +100,7 @@ public class OrdineController {
 				mappaProdotti.put(p, 1);
 			}
 		}
-		model.addObject("ordine", orDAO.getOrdine(id));
+		model.addObject("ordine", ordineDAO.getOrdine(id));
 		model.addObject("lista", mappaProdotti);
 		return model;
 	}
@@ -124,7 +123,7 @@ public class OrdineController {
 		}
 		for (Prodotto p : prodotti) {
 				Integer value = mappaProdotti.get(p);
-				++value;
+				value++;
 				mappaProdotti.put(p, value);			
 		}
 		model.addObject("menu", mappaProdotti);
