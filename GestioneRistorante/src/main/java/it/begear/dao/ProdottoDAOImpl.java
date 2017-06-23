@@ -83,6 +83,7 @@ public class ProdottoDAOImpl implements ProdottoDAO {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Prodotto> productList = session.createQuery("from Prodotto").list();
+		session.close();
 		return productList;
 	}
 

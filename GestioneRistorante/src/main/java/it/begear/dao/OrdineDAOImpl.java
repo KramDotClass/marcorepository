@@ -35,7 +35,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 			order.setCameriere(cameriere);
 			order.setListaProdotti(prodotti);
 			order.setTotale(totale);
-			session.saveOrUpdate(order);
+			session.save(order);
 			tx.commit();
 			return true;
 		} catch (HibernateException e) {

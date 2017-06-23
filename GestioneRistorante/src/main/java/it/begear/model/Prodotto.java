@@ -58,6 +58,7 @@ public class Prodotto implements Comparable<Prodotto> {
 	}
 
 	public int compareTo(Prodotto o) {
+
 		if (this.getTipologia().compareTo(o.getTipologia()) == 0) {
 			if (this.getNome().compareTo(o.getNome()) == 0) {
 				return 0;

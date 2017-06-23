@@ -12,6 +12,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
 <img class="begear" src="<%=request.getContextPath()%>/resources/img/logo.png">
+<h3 align="center"><c:if test="${msg != null}" >${msg}</c:if></h3>
 	<table border="1px" align="center">
 		<tr>
 			<th>Codice ordine</th>
@@ -56,7 +57,6 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			</td>
 		</tr>
 	</table>
-
 
 </body>
 </html>

@@ -74,6 +74,8 @@ th {
 	text-align: center;
 	font-weight: bold;
 	background-color: orange;
+	color: blue;
+	border-radius: 0.6em;
 }
 
 #prodotto {
